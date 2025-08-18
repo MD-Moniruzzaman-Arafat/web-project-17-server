@@ -51,6 +51,14 @@ async function run() {
       res.send(result)
     })
 
+    // delete data
+    app.delete('/coffee/:id', async (req, res) => {
+      const id = req.params.id
+      const objectId = new ObjectId(id)
+      const result = await coffeeCollection.deleteOne({ _id: objectId })
+      res.send(result)
+    })
+
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 })
     console.log(
