@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { MongoClient, ServerApiVersion } = require('mongodb')
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb')
 const port = process.env.PORT || 5000
 require('dotenv').config()
 const app = express()
@@ -41,6 +41,14 @@ async function run() {
       const result = coffeeCollection.find()
       const getData = await result.toArray()
       res.send(getData)
+    })
+
+    // get single data
+    app.get('/coffee/:id', async (req, res) => {
+      const id = req.params.id
+      const objectId = new ObjectId(id)
+      const result = await coffeeCollection.findOne({ _id: objectId })
+      res.send(result)
     })
 
     // Send a ping to confirm a successful connection
