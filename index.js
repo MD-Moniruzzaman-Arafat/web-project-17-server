@@ -36,6 +36,13 @@ async function run() {
       res.send(postData)
     })
 
+    // get route
+    app.get('/coffee', async (req, res) => {
+      const result = coffeeCollection.find()
+      const getData = await result.toArray()
+      res.send(getData)
+    })
+
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 })
     console.log(
